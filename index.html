@@ -20,8 +20,15 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
 
+        const ambientLight = new THREE.AmbientLight(0x404040, 2);
+        scene.add(ambientLight);
+        
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(1, 1, 1).normalize();
+        scene.add(directionalLight);
+
         const geometry = new THREE.BoxGeometry();
-        const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+        const material = new THREE.MeshPhongMaterial({ color: 0x00ff00 });
         const cube = new THREE.Mesh(geometry, material);
         scene.add(cube);
 
@@ -29,6 +36,7 @@
 
         let toggleBackground = true;
         let lastTime = 0;
+        let time = 0;
 
         function animate(time) {
             requestAnimationFrame(animate);
@@ -41,11 +49,17 @@
 
             cube.rotation.x += 0.01;
             cube.rotation.y += 0.01;
+            cube.position.y = Math.sin(time / 500) * 2;
 
             renderer.render(scene, camera);
         }
 
         animate(0);
+
+        window.addEventListener('click', function() {
+            const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+            cube.material.color.set(`#${randomColor}`);
+        });
     </script>
 </body>
 </html>
