@@ -2,6 +2,6 @@
 
 simple animation
 
-(click anywhere to change cube color)
-
 https://vldmr777.github.io/cube-flash/
+
+(click anywhere to change cube color)
